@@ -1,0 +1,22 @@
+[
+    {
+       "title":"컬리추천",
+       "tabId":"main"
+    },
+    {
+       "title":"신상품",
+       "tabId":"beauty-newproduct"
+    },
+    {
+       "title":"베스트",
+       "tabId":"beauty-best"
+    },
+    {
+       "title":"특가/혜택",
+       "tabId":"beauty-benefit"
+    },
+    {
+       "title":"브랜드관",
+       "tabId":"beauty-event"
+    }
+ ]

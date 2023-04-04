@@ -1,0 +1,22 @@
+[
+    {
+       "title":"컬리추천",
+       "tabId":"main"
+    },
+    {
+       "title":"신상품",
+       "tabId":"market-newproduct"
+    },
+    {
+       "title":"베스트",
+       "tabId":"market-best"
+    },
+    {
+       "title":"알뜰쇼핑",
+       "tabId":"market-time-sales"
+    },
+    {
+       "title":"특가/혜택",
+       "tabId":"market-benefit"
+    }
+ ]

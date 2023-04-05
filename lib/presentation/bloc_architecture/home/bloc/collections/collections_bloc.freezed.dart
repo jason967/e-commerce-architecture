@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$CollectionsState {
   BlocStatus get status => throw _privateConstructorUsedError;
+  StoreType get storeType => throw _privateConstructorUsedError;
   List<Collection> get collections => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,7 +31,8 @@ abstract class $CollectionsStateCopyWith<$Res> {
           CollectionsState value, $Res Function(CollectionsState) then) =
       _$CollectionsStateCopyWithImpl<$Res, CollectionsState>;
   @useResult
-  $Res call({BlocStatus status, List<Collection> collections});
+  $Res call(
+      {BlocStatus status, StoreType storeType, List<Collection> collections});
 }
 
 /// @nodoc
@@ -47,6 +49,7 @@ class _$CollectionsStateCopyWithImpl<$Res, $Val extends CollectionsState>
   @override
   $Res call({
     Object? status = null,
+    Object? storeType = null,
     Object? collections = null,
   }) {
     return _then(_value.copyWith(
@@ -54,6 +57,10 @@ class _$CollectionsStateCopyWithImpl<$Res, $Val extends CollectionsState>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as BlocStatus,
+      storeType: null == storeType
+          ? _value.storeType
+          : storeType // ignore: cast_nullable_to_non_nullable
+              as StoreType,
       collections: null == collections
           ? _value.collections
           : collections // ignore: cast_nullable_to_non_nullable
@@ -70,7 +77,8 @@ abstract class _$$_CollectionsStateCopyWith<$Res>
       __$$_CollectionsStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({BlocStatus status, List<Collection> collections});
+  $Res call(
+      {BlocStatus status, StoreType storeType, List<Collection> collections});
 }
 
 /// @nodoc
@@ -85,6 +93,7 @@ class __$$_CollectionsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? status = null,
+    Object? storeType = null,
     Object? collections = null,
   }) {
     return _then(_$_CollectionsState(
@@ -92,6 +101,10 @@ class __$$_CollectionsStateCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as BlocStatus,
+      storeType: null == storeType
+          ? _value.storeType
+          : storeType // ignore: cast_nullable_to_non_nullable
+              as StoreType,
       collections: null == collections
           ? _value._collections
           : collections // ignore: cast_nullable_to_non_nullable
@@ -105,12 +118,16 @@ class __$$_CollectionsStateCopyWithImpl<$Res>
 class _$_CollectionsState implements _CollectionsState {
   _$_CollectionsState(
       {this.status = BlocStatus.initial,
+      this.storeType = StoreType.market,
       final List<Collection> collections = const []})
       : _collections = collections;
 
   @override
   @JsonKey()
   final BlocStatus status;
+  @override
+  @JsonKey()
+  final StoreType storeType;
   final List<Collection> _collections;
   @override
   @JsonKey()
@@ -122,7 +139,7 @@ class _$_CollectionsState implements _CollectionsState {
 
   @override
   String toString() {
-    return 'CollectionsState(status: $status, collections: $collections)';
+    return 'CollectionsState(status: $status, storeType: $storeType, collections: $collections)';
   }
 
   @override
@@ -131,13 +148,15 @@ class _$_CollectionsState implements _CollectionsState {
         (other.runtimeType == runtimeType &&
             other is _$_CollectionsState &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.storeType, storeType) ||
+                other.storeType == storeType) &&
             const DeepCollectionEquality()
                 .equals(other._collections, _collections));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, status, const DeepCollectionEquality().hash(_collections));
+  int get hashCode => Object.hash(runtimeType, status, storeType,
+      const DeepCollectionEquality().hash(_collections));
 
   @JsonKey(ignore: true)
   @override
@@ -149,10 +168,13 @@ class _$_CollectionsState implements _CollectionsState {
 abstract class _CollectionsState implements CollectionsState {
   factory _CollectionsState(
       {final BlocStatus status,
+      final StoreType storeType,
       final List<Collection> collections}) = _$_CollectionsState;
 
   @override
   BlocStatus get status;
+  @override
+  StoreType get storeType;
   @override
   List<Collection> get collections;
   @override

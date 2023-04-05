@@ -17,7 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ViewModulesState {
   BlocStatus get status => throw _privateConstructorUsedError;
-  List<ViewModule> get viewModules => throw _privateConstructorUsedError;
+  Map<String, List<ViewModule>> get viewModules =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ViewModulesStateCopyWith<ViewModulesState> get copyWith =>
@@ -30,7 +31,7 @@ abstract class $ViewModulesStateCopyWith<$Res> {
           ViewModulesState value, $Res Function(ViewModulesState) then) =
       _$ViewModulesStateCopyWithImpl<$Res, ViewModulesState>;
   @useResult
-  $Res call({BlocStatus status, List<ViewModule> viewModules});
+  $Res call({BlocStatus status, Map<String, List<ViewModule>> viewModules});
 }
 
 /// @nodoc
@@ -57,7 +58,7 @@ class _$ViewModulesStateCopyWithImpl<$Res, $Val extends ViewModulesState>
       viewModules: null == viewModules
           ? _value.viewModules
           : viewModules // ignore: cast_nullable_to_non_nullable
-              as List<ViewModule>,
+              as Map<String, List<ViewModule>>,
     ) as $Val);
   }
 }
@@ -70,7 +71,7 @@ abstract class _$$_ViewModulesStateCopyWith<$Res>
       __$$_ViewModulesStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({BlocStatus status, List<ViewModule> viewModules});
+  $Res call({BlocStatus status, Map<String, List<ViewModule>> viewModules});
 }
 
 /// @nodoc
@@ -95,7 +96,7 @@ class __$$_ViewModulesStateCopyWithImpl<$Res>
       viewModules: null == viewModules
           ? _value._viewModules
           : viewModules // ignore: cast_nullable_to_non_nullable
-              as List<ViewModule>,
+              as Map<String, List<ViewModule>>,
     ));
   }
 }
@@ -105,19 +106,19 @@ class __$$_ViewModulesStateCopyWithImpl<$Res>
 class _$_ViewModulesState implements _ViewModulesState {
   _$_ViewModulesState(
       {this.status = BlocStatus.initial,
-      final List<ViewModule> viewModules = const []})
+      final Map<String, List<ViewModule>> viewModules = const {}})
       : _viewModules = viewModules;
 
   @override
   @JsonKey()
   final BlocStatus status;
-  final List<ViewModule> _viewModules;
+  final Map<String, List<ViewModule>> _viewModules;
   @override
   @JsonKey()
-  List<ViewModule> get viewModules {
-    if (_viewModules is EqualUnmodifiableListView) return _viewModules;
+  Map<String, List<ViewModule>> get viewModules {
+    if (_viewModules is EqualUnmodifiableMapView) return _viewModules;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_viewModules);
+    return EqualUnmodifiableMapView(_viewModules);
   }
 
   @override
@@ -149,12 +150,12 @@ class _$_ViewModulesState implements _ViewModulesState {
 abstract class _ViewModulesState implements ViewModulesState {
   factory _ViewModulesState(
       {final BlocStatus status,
-      final List<ViewModule> viewModules}) = _$_ViewModulesState;
+      final Map<String, List<ViewModule>> viewModules}) = _$_ViewModulesState;
 
   @override
   BlocStatus get status;
   @override
-  List<ViewModule> get viewModules;
+  Map<String, List<ViewModule>> get viewModules;
   @override
   @JsonKey(ignore: true)
   _$$_ViewModulesStateCopyWith<_$_ViewModulesState> get copyWith =>

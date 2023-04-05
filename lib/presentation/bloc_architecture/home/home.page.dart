@@ -23,8 +23,7 @@ class HomePage extends StatelessWidget {
               locater<CollectionsBloc>()..add(CollectionsInitialized()),
         ),
         BlocProvider(
-          create: (_) =>
-              locater<ViewModulesBloc>()..add(ViewModulesInitialized()),
+          create: (_) => locater<ViewModulesBloc>(),
         ),
       ],
       child: const HomeView(),
@@ -53,7 +52,10 @@ class HomeView extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             case BlocStatus.success:
-              return CollectionsBar(state.collections);
+              return CollectionsBar(
+                collections: state.collections,
+                storeType: state.storeType,
+              );
             case BlocStatus.failure:
               return const Center(
                 child: CircularProgressIndicator(),

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:sample_project/injection.dart';
 import 'package:sample_project/presentation/bloc_architecture/common/cubit/bottom_navigation_cubit.dart';
-import 'package:sample_project/presentation/bloc_architecture/home/view_modules/view_modules.dart';
+import 'package:sample_project/presentation/bloc_architecture/home/core/view_modules.dart';
 
 import 'package:sample_project/presentation/bloc_architecture/router.dart';
 

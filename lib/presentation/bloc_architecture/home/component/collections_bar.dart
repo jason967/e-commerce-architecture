@@ -2,14 +2,18 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:reflectable/reflectable.dart';
 import 'package:sample_project/presentation/bloc_architecture/common/bloc/bolc_utils.dart';
 import 'package:sample_project/presentation/bloc_architecture/home/bloc/view_modules/view_modules_bloc.dart';
-import 'package:sample_project/presentation/bloc_architecture/home/view_modules/view_modules.dart';
+import 'package:sample_project/presentation/bloc_architecture/home/core/view_modules.dart';
+import 'package:sample_project/presentation/bloc_architecture/home/cubit/store_type_cubit.dart';
 
 import '../../../../domain/model/display/collection/collection.model.dart';
 
 class CollectionsBar extends StatefulWidget {
-  const CollectionsBar(this.collections, {super.key});
+  const CollectionsBar(
+      {required this.collections, required this.storeType, super.key});
+  final StoreType storeType;
   final List<Collection> collections;
 
   @override
@@ -24,6 +28,20 @@ class _CollectionsBarState extends State<CollectionsBar>
     super.initState();
     _tabController =
         TabController(length: widget.collections.length, vsync: this);
+    _tabController.addListener(() {
+      log('[test] idx : ${_tabController.index}');
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    context.read<ViewModulesBloc>().add(
+          ViewModulesInitialized(
+            storeType: widget.storeType,
+            collections: widget.collections,
+          ),
+        );
   }
 
   @override
@@ -46,52 +64,32 @@ class _CollectionsBarState extends State<CollectionsBar>
           child: TabBarView(
             controller: _tabController,
             children: [
-              BlocBuilder<ViewModulesBloc, ViewModulesState>(
-                builder: (context, state) {
-                  if (state.status == BlocStatus.success) {
-                    final viewModules = state.viewModules;
-                    final image = viewModules.first.items;
-                    // log('[test] image : $image');
-                    return SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          DataMirrors().mirrors['reflectsample'],
-                          Image.network(image[1].image),
-                          Image.network(image[2].image),
-                        ],
-                      ),
-                    );
-                  } else {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                },
-              ),
-              Center(
-                child: Container(
-                  height: 400,
-                  child: Text(widget.collections[1].title),
-                ),
-              ),
-              Center(
-                child: Container(
-                  height: 400,
-                  child: Text(widget.collections[2].title),
-                ),
-              ),
-              Center(
-                child: Container(
-                  height: 400,
-                  child: Text(widget.collections[3].title),
-                ),
-              ),
-              Center(
-                child: Container(
-                  height: 400,
-                  child: Text(widget.collections[4].title),
-                ),
-              ),
+              Container(),
+              Container(),
+              Container(),
+              Container(),
+              Container(),
+
+              // BlocBuilder<ViewModulesBloc, ViewModulesState>(
+              //     builder: (context, state) {
+              //   if (state.status == BlocStatus.success) {
+              //     final viewModules = state.viewModules;
+              //     final image = viewModules.first.items;
+              //     final viewModuleFactory = ViewModuleFactory();
+
+              //     return SingleChildScrollView(
+              //       child: Column(
+              //         children: viewModules.entries
+              //             .map((e) => viewModuleFactory.makeViewModule(e.value))
+              //             .toList(),
+              //       ),
+              //     );
+              //   } else {
+              //     return const Center(
+              //       child: CircularProgressIndicator(),
+              //     );
+              //   }
+              // }),
             ],
           ),
         ),

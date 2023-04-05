@@ -4,7 +4,11 @@ abstract class ViewModulesEvent {
   const ViewModulesEvent();
 }
 
-class ViewModulesInitialized extends ViewModulesEvent {}
+class ViewModulesInitialized extends ViewModulesEvent {
+  ViewModulesInitialized({required this.storeType, required this.collections});
+  final StoreType storeType;
+  final List<Collection> collections;
+}
 
 // class CollectionsChanged extends CollectionsEvent {
 //   final StoreType storeType;

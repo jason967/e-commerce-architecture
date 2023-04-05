@@ -26,8 +26,10 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
   Future _onCollectionsInit(
       CollectionsInitialized event, Emitter<CollectionsState> emit) async {
     emit(state.copyWith(status: BlocStatus.loading));
+    final storeType = state.storeType;
 
-    final result = await _displayRepository.getCollections(path: '/market');
+    final result =
+        await _displayRepository.getCollections(path: '/${storeType.name}');
     // final sample = await _displayRepository.getViewModules(path: '/market/aaa');
     // log('[test] sample : $sample');
 
@@ -39,11 +41,13 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
       CollectionsChanged event, Emitter<CollectionsState> emit) async {
     emit(state.copyWith(status: BlocStatus.loading));
 
-    final storeType = event.storeType.name;
+    final storeType = event.storeType;
 
-    final result = await _displayRepository.getCollections(path: '/$storeType');
+    final result =
+        await _displayRepository.getCollections(path: '/${storeType.name}');
 
     await Future.delayed(const Duration(seconds: 2));
-    emit(state.copyWith(status: BlocStatus.success, collections: result));
+    emit(state.copyWith(
+        status: BlocStatus.success, collections: result, storeType: storeType));
   }
 }

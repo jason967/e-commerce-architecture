@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ViewModulesState {
   BlocStatus get status => throw _privateConstructorUsedError;
   StoreType get storeType => throw _privateConstructorUsedError;
+  String get collection => throw _privateConstructorUsedError;
   Map<String, List<ViewModule>> get viewModules =>
       throw _privateConstructorUsedError;
 
@@ -35,6 +36,7 @@ abstract class $ViewModulesStateCopyWith<$Res> {
   $Res call(
       {BlocStatus status,
       StoreType storeType,
+      String collection,
       Map<String, List<ViewModule>> viewModules});
 }
 
@@ -53,6 +55,7 @@ class _$ViewModulesStateCopyWithImpl<$Res, $Val extends ViewModulesState>
   $Res call({
     Object? status = null,
     Object? storeType = null,
+    Object? collection = null,
     Object? viewModules = null,
   }) {
     return _then(_value.copyWith(
@@ -64,6 +67,10 @@ class _$ViewModulesStateCopyWithImpl<$Res, $Val extends ViewModulesState>
           ? _value.storeType
           : storeType // ignore: cast_nullable_to_non_nullable
               as StoreType,
+      collection: null == collection
+          ? _value.collection
+          : collection // ignore: cast_nullable_to_non_nullable
+              as String,
       viewModules: null == viewModules
           ? _value.viewModules
           : viewModules // ignore: cast_nullable_to_non_nullable
@@ -83,6 +90,7 @@ abstract class _$$_ViewModulesStateCopyWith<$Res>
   $Res call(
       {BlocStatus status,
       StoreType storeType,
+      String collection,
       Map<String, List<ViewModule>> viewModules});
 }
 
@@ -99,6 +107,7 @@ class __$$_ViewModulesStateCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? storeType = null,
+    Object? collection = null,
     Object? viewModules = null,
   }) {
     return _then(_$_ViewModulesState(
@@ -110,6 +119,10 @@ class __$$_ViewModulesStateCopyWithImpl<$Res>
           ? _value.storeType
           : storeType // ignore: cast_nullable_to_non_nullable
               as StoreType,
+      collection: null == collection
+          ? _value.collection
+          : collection // ignore: cast_nullable_to_non_nullable
+              as String,
       viewModules: null == viewModules
           ? _value._viewModules
           : viewModules // ignore: cast_nullable_to_non_nullable
@@ -124,6 +137,7 @@ class _$_ViewModulesState implements _ViewModulesState {
   _$_ViewModulesState(
       {this.status = BlocStatus.initial,
       this.storeType = StoreType.market,
+      this.collection = '',
       final Map<String, List<ViewModule>> viewModules = const {}})
       : _viewModules = viewModules;
 
@@ -133,6 +147,9 @@ class _$_ViewModulesState implements _ViewModulesState {
   @override
   @JsonKey()
   final StoreType storeType;
+  @override
+  @JsonKey()
+  final String collection;
   final Map<String, List<ViewModule>> _viewModules;
   @override
   @JsonKey()
@@ -144,7 +161,7 @@ class _$_ViewModulesState implements _ViewModulesState {
 
   @override
   String toString() {
-    return 'ViewModulesState(status: $status, storeType: $storeType, viewModules: $viewModules)';
+    return 'ViewModulesState(status: $status, storeType: $storeType, collection: $collection, viewModules: $viewModules)';
   }
 
   @override
@@ -155,12 +172,14 @@ class _$_ViewModulesState implements _ViewModulesState {
             (identical(other.status, status) || other.status == status) &&
             (identical(other.storeType, storeType) ||
                 other.storeType == storeType) &&
+            (identical(other.collection, collection) ||
+                other.collection == collection) &&
             const DeepCollectionEquality()
                 .equals(other._viewModules, _viewModules));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, storeType,
+  int get hashCode => Object.hash(runtimeType, status, storeType, collection,
       const DeepCollectionEquality().hash(_viewModules));
 
   @JsonKey(ignore: true)
@@ -174,12 +193,15 @@ abstract class _ViewModulesState implements ViewModulesState {
   factory _ViewModulesState(
       {final BlocStatus status,
       final StoreType storeType,
+      final String collection,
       final Map<String, List<ViewModule>> viewModules}) = _$_ViewModulesState;
 
   @override
   BlocStatus get status;
   @override
   StoreType get storeType;
+  @override
+  String get collection;
   @override
   Map<String, List<ViewModule>> get viewModules;
   @override

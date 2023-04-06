@@ -45,24 +45,27 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
     //   log('[test] $key : $value');
     // });
     await Future.delayed(const Duration(seconds: 2));
-    emit(state.copyWith(status: BlocStatus.success, viewModules: modules));
+    emit(state.copyWith(
+        status: BlocStatus.success, viewModules: modules, collection: mainTab));
   }
 
   Future _onViewModulesChanged(
       ViewModulesChanged event, Emitter<ViewModulesState> emit) async {
-    emit(state.copyWith(status: BlocStatus.loading));
-
     final storeType = state.storeType;
     final tabId = event.tabId;
 
-    final viewModule = await _displayRepository.getViewModules(
-        path: '/${storeType.name}/$tabId');
     Map<String, List<ViewModule>> modules = {...state.viewModules};
+
     if (modules[tabId] == null || modules[tabId]!.isEmpty) {
+      emit(state.copyWith(status: BlocStatus.loading));
+      final viewModule = await _displayRepository.getViewModules(
+          path: '/${storeType.name}/$tabId');
       modules[tabId] = viewModule;
+      await Future.delayed(const Duration(seconds: 2));
+      emit(state.copyWith(
+          status: BlocStatus.success, collection: tabId, viewModules: modules));
     }
 
-    await Future.delayed(const Duration(seconds: 2));
-    emit(state.copyWith(status: BlocStatus.success, viewModules: modules));
+    emit(state.copyWith(collection: tabId));
   }
 }

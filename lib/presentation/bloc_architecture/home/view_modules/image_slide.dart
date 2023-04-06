@@ -10,9 +10,20 @@ class ImageSlide extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
-      width: MediaQuery.of(context).size.width,
+      height: 353,
+      // width: MediaQuery.of(context).size.width,
       color: Colors.red,
+      child: PageView.builder(
+        padEnds: false,
+        itemCount: viewModule.items.length,
+        itemBuilder: (context, index) {
+          return Image.network(
+            viewModule.items[index].image,
+            // height: 300,
+            // width: MediaQuery.of(context).size.width,
+          );
+        },
+      ),
     );
   }
 }

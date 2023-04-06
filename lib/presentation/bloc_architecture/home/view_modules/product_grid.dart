@@ -14,6 +14,9 @@ class ProductGrid extends StatelessWidget {
       height: 300,
       width: MediaQuery.of(context).size.width,
       color: Colors.green,
+      child: Center(
+        child: Text(viewModule.type),
+      ),
     );
   }
 }

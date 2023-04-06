@@ -14,6 +14,9 @@ class ProductCarousel extends StatelessWidget {
       height: 300,
       width: MediaQuery.of(context).size.width,
       color: Colors.blue,
+      child: Center(
+        child: Text(viewModule.type),
+      ),
     );
   }
 }

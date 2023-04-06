@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:reflectable/reflectable.dart';
+
 import 'package:sample_project/presentation/bloc_architecture/common/bloc/bolc_utils.dart';
 import 'package:sample_project/presentation/bloc_architecture/home/bloc/view_modules/view_modules_bloc.dart';
 import 'package:sample_project/presentation/bloc_architecture/home/core/view_modules.dart';
@@ -28,40 +28,12 @@ class _CollectionsBarState extends State<CollectionsBar>
     super.initState();
     _tabController =
         TabController(length: widget.collections.length, vsync: this);
-    // _tabController.animation!.addListener(_onScroll);
-    _tabController.animation!.addListener(() {
-      log('[test] offset : ${_tabController.offset}');
-      log('[test] before : ${_tabController.previousIndex}, after : ${_tabController.index} ');
 
-      if (_tabController.indexIsChanging) {
-        log('[test] 쨔스!!');
-        context.read<ViewModulesBloc>().add(
-            ViewModulesChanged(widget.collections[_tabController.index].tabId));
-      }
-    });
-    // _tabController.animation!.addListener(() {
-    //   // log('[test] offset --> ${_tabController.offset}');
-
-    //   // log('[test] before : ${_tabController.previousIndex}, after : ${_tabController.index} ');
-
-    //   // log('[test] changed --> ${_tabController.indexIsChanging}');
-    //   if (_tabController.indexIsChanging) {
-    //     context.read<ViewModulesBloc>().add(
-    //         ViewModulesChanged(widget.collections[_tabController.index].tabId));
-    //   }
-    // });
-  }
-
-  void _onScroll() {
-    if (_isBottom) {
+    _tabController.addListener(() {
       log('[test] 쨔스!!');
-    }
-  }
-
-  bool get _isBottom {
-    final currentScroll = _tabController.offset;
-    log('[test] offset : $currentScroll');
-    return false;
+      context.read<ViewModulesBloc>().add(
+          ViewModulesChanged(widget.collections[_tabController.index].tabId));
+    });
   }
 
   @override
@@ -95,34 +67,29 @@ class _CollectionsBarState extends State<CollectionsBar>
         Expanded(
           child: TabBarView(
             controller: _tabController,
-            children: [
-              Container(),
-              Container(),
-              Container(),
-              Container(),
-              Container(),
+            children: widget.collections
+                .map(
+                  (e) => BlocBuilder<ViewModulesBloc, ViewModulesState>(
+                      builder: (context, state) {
+                    if (state.status == BlocStatus.success) {
+                      final viewModules = state.viewModules[e.tabId];
 
-              // BlocBuilder<ViewModulesBloc, ViewModulesState>(
-              //     builder: (context, state) {
-              //   if (state.status == BlocStatus.success) {
-              //     final viewModules = state.viewModules;
-              //     final image = viewModules.first.items;
-              //     final viewModuleFactory = ViewModuleFactory();
+                      final viewModuleFactory = ViewModuleFactory();
 
-              //     return SingleChildScrollView(
-              //       child: Column(
-              //         children: viewModules.entries
-              //             .map((e) => viewModuleFactory.makeViewModule(e.value))
-              //             .toList(),
-              //       ),
-              //     );
-              //   } else {
-              //     return const Center(
-              //       child: CircularProgressIndicator(),
-              //     );
-              //   }
-              // }),
-            ],
+                      return SingleChildScrollView(
+                        child: Column(
+                            children: viewModules!
+                                .map((e) => viewModuleFactory.makeViewModule(e))
+                                .toList()),
+                      );
+                    } else {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  }),
+                )
+                .toList(),
           ),
         ),
       ],

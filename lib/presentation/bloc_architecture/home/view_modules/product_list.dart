@@ -14,6 +14,9 @@ class ProductList extends StatelessWidget {
       height: 300,
       width: MediaQuery.of(context).size.width,
       color: Colors.orange,
+      child: Center(
+        child: Text(viewModule.type),
+      ),
     );
   }
 }

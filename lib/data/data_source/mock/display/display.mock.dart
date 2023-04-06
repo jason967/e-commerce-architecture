@@ -25,7 +25,7 @@ class DisplayMock {
     log('[test] path : $collection');
 
     final jsonString =
-        await rootBundle.loadString('assets/json/view_modules.json');
+        await rootBundle.loadString('assets/json/view_modules$collection.json');
     final List<dynamic> jsonResponse = json.decode(jsonString);
 
     final viewModules = [

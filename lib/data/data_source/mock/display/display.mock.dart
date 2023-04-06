@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/services.dart';
 import 'package:sample_project/data/dto/display/view_module/view_module.dto.dart';
@@ -20,7 +21,8 @@ class DisplayMock {
   }
 
   Future<List<ViewModuleDto>?> getViewModulesJson(String path) async {
-    final collection = path.replaceAll('/', '');
+    final collection = path.replaceAll('/', '_');
+    log('[test] path : $collection');
 
     final jsonString =
         await rootBundle.loadString('assets/json/view_modules.json');

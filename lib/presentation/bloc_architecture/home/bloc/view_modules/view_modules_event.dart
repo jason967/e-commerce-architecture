@@ -10,7 +10,7 @@ class ViewModulesInitialized extends ViewModulesEvent {
   final List<Collection> collections;
 }
 
-// class CollectionsChanged extends CollectionsEvent {
-//   final StoreType storeType;
-//   CollectionsChanged(this.storeType);
-// }
+class ViewModulesChanged extends ViewModulesEvent {
+  final String tabId;
+  ViewModulesChanged(this.tabId);
+}

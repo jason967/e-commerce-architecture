@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sample_project/data/common/mapper/display/display.mapper.dart';
@@ -31,6 +33,7 @@ class DisplayRepositoryImpl implements DisplayRepository {
   @override
   Future<List<ViewModule>> getViewModules(
       {required String path, Map<String, String>? queries}) async {
+    log('[test] view_module path : $path');
     final jsonSample = await DisplayMock().getViewModulesJson(path);
 
     final viewModules = jsonSample?.map((e) => e.toModel()).toList() ?? [];

@@ -22,6 +22,7 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
   ViewModulesBloc(this._displayRepository)
       : super(ViewModulesState(status: BlocStatus.initial)) {
     on<ViewModulesInitialized>(_onViewModulesInit);
+    on<ViewModulesChanged>(_onViewModulesChanged);
   }
 
   Future _onViewModulesInit(
@@ -36,26 +37,32 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
     final mainTab = event.collections.first.tabId;
 
     // final result = await _displayRepository.getCollections(path: '/market');
-    final sample =
-        await _displayRepository.getViewModules(path: '/$storeType/$mainTab');
+    final sample = await _displayRepository.getViewModules(
+        path: '/${storeType.name}/$mainTab');
 
     modules[mainTab] = sample;
-    modules.forEach((key, value) {
-      log('[test] $key : $value');
-    });
+    // modules.forEach((key, value) {
+    //   log('[test] $key : $value');
+    // });
     await Future.delayed(const Duration(seconds: 2));
     emit(state.copyWith(status: BlocStatus.success, viewModules: modules));
   }
 
-  // Future _on_onViewModulesInitChanged(
-  //     CollectionsChanged event, Emitter<CollectionsState> emit) async {
-  //   emit(state.copyWith(status: BlocStatus.loading));
+  Future _onViewModulesChanged(
+      ViewModulesChanged event, Emitter<ViewModulesState> emit) async {
+    emit(state.copyWith(status: BlocStatus.loading));
 
-  //   final storeType = event.storeType.name;
+    final storeType = state.storeType;
+    final tabId = event.tabId;
 
-  //   final result = await _displayRepository.getCollections(path: '/$storeType');
+    final viewModule = await _displayRepository.getViewModules(
+        path: '/${storeType.name}/$tabId');
+    Map<String, List<ViewModule>> modules = {...state.viewModules};
+    if (modules[tabId] == null || modules[tabId]!.isEmpty) {
+      modules[tabId] = viewModule;
+    }
 
-  //   await Future.delayed(const Duration(seconds: 2));
-  //   emit(state.copyWith(status: BlocStatus.success, collections: result));
-  // }
+    await Future.delayed(const Duration(seconds: 2));
+    emit(state.copyWith(status: BlocStatus.success, viewModules: modules));
+  }
 }

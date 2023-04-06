@@ -28,9 +28,40 @@ class _CollectionsBarState extends State<CollectionsBar>
     super.initState();
     _tabController =
         TabController(length: widget.collections.length, vsync: this);
-    _tabController.addListener(() {
-      log('[test] idx : ${_tabController.index}');
+    // _tabController.animation!.addListener(_onScroll);
+    _tabController.animation!.addListener(() {
+      log('[test] offset : ${_tabController.offset}');
+      log('[test] before : ${_tabController.previousIndex}, after : ${_tabController.index} ');
+
+      if (_tabController.indexIsChanging) {
+        log('[test] 쨔스!!');
+        context.read<ViewModulesBloc>().add(
+            ViewModulesChanged(widget.collections[_tabController.index].tabId));
+      }
     });
+    // _tabController.animation!.addListener(() {
+    //   // log('[test] offset --> ${_tabController.offset}');
+
+    //   // log('[test] before : ${_tabController.previousIndex}, after : ${_tabController.index} ');
+
+    //   // log('[test] changed --> ${_tabController.indexIsChanging}');
+    //   if (_tabController.indexIsChanging) {
+    //     context.read<ViewModulesBloc>().add(
+    //         ViewModulesChanged(widget.collections[_tabController.index].tabId));
+    //   }
+    // });
+  }
+
+  void _onScroll() {
+    if (_isBottom) {
+      log('[test] 쨔스!!');
+    }
+  }
+
+  bool get _isBottom {
+    final currentScroll = _tabController.offset;
+    log('[test] offset : $currentScroll');
+    return false;
   }
 
   @override
@@ -50,6 +81,7 @@ class _CollectionsBarState extends State<CollectionsBar>
       children: [
         TabBar(
           controller: _tabController,
+          onTap: (index) => {},
           padding: const EdgeInsets.symmetric(horizontal: 12),
           labelPadding: const EdgeInsets.symmetric(vertical: 12),
           labelStyle:

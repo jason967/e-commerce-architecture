@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,7 +39,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<StoreTypeCubit, StoreType>(
-      listenWhen: (previous, current) => previous.index != current.index,
+      listenWhen: (previous, current) => (previous.index != current.index),
       listener: ((context, state) =>
           context.read<CollectionsBloc>().add(CollectionsChanged(state))),
       child: BlocBuilder<CollectionsBloc, CollectionsState>(
@@ -53,6 +55,7 @@ class HomeView extends StatelessWidget {
               );
             case BlocStatus.success:
               return CollectionsBar(
+                key: UniqueKey(),
                 collections: state.collections,
                 storeType: state.storeType,
               );

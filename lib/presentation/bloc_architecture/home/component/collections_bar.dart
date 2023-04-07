@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:sample_project/presentation/bloc_architecture/common/bloc/bolc_utils.dart';
+import 'package:sample_project/presentation/bloc_architecture/home/bloc/collections/collections_bloc.dart';
 import 'package:sample_project/presentation/bloc_architecture/home/bloc/view_modules/view_modules_bloc.dart';
 import 'package:sample_project/presentation/bloc_architecture/home/core/view_modules.dart';
 import 'package:sample_project/presentation/bloc_architecture/home/cubit/store_type_cubit.dart';
@@ -30,7 +31,6 @@ class _CollectionsBarState extends State<CollectionsBar>
         TabController(length: widget.collections.length, vsync: this);
 
     _tabController.addListener(() {
-      log('[test] 쨔스!!');
       context.read<ViewModulesBloc>().add(
           ViewModulesChanged(widget.collections[_tabController.index].tabId));
     });

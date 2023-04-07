@@ -22,7 +22,6 @@ class DisplayMock {
 
   Future<List<ViewModuleDto>?> getViewModulesJson(String path) async {
     final collection = path.replaceAll('/', '_');
-    log('[test] path : $collection');
 
     final jsonString =
         await rootBundle.loadString('assets/json/view_modules$collection.json');
